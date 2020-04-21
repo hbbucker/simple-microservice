@@ -5,12 +5,12 @@
 Compile e empacote o projeto utilizando Maven:
 
 ```bash
-./mvnw compile build
+./mvnw compile package
 ```
 
 ### Criar container Docker
 
-Utiliza o docker-compose para criar e levantar o ambiente com Docker:
+Utilizar o docker-compose para criar e levantar o ambiente com Docker:
 
 ```bash
 docker-compose build
