@@ -1,7 +1,7 @@
 package br.com.bucker.resource;
 
-import br.com.bucker.model.Cliente;
-import br.com.bucker.service.ClienteService;
+import br.com.bucker.model.Produto;
+import br.com.bucker.service.ProdutoService;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
@@ -9,33 +9,33 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/cliente")
+@Path("/produto")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class ClienteResource implements IResource<Cliente> {
+public class ProdutosResource implements IResource<Produto> {
 
     @Inject
-    ClienteService clienteService;
+    ProdutoService produtoService;
 
     @GET
     @RolesAllowed("user")
     @Path("/{id}")
-    public Cliente buscarPeloId(@PathParam("id") Long id) {
-        return clienteService.buscarPeloId(id);
+    public Produto buscarPeloId(@PathParam("id") Long id) {
+        return produtoService.buscarPeloId(id);
     }
 
     @POST
-    @RolesAllowed("user")
-    public Response incluir(Cliente cliente) {
-        return Response.ok(clienteService.incluir(cliente)).status(Response.Status.CREATED).build();
+    @RolesAllowed("admin")
+    public Response incluir(Produto produto) {
+        return Response.ok(produtoService.incluir(produto)).status(Response.Status.CREATED).build();
     }
 
     @DELETE
-    @RolesAllowed("user")
+    @RolesAllowed("admin")
     @Path("/{id}")
     public Response apagarPeloId(@PathParam("id") Long id) {
         Response.Status response;
-        if (clienteService.apagarPeloId(id) > 0) {
+        if (produtoService.apagarPeloId(id) > 0) {
             response = Response.Status.NO_CONTENT;
         } else {
             response = Response.Status.NOT_FOUND;
@@ -45,14 +45,15 @@ public class ClienteResource implements IResource<Cliente> {
     }
 
     @PUT
-    @RolesAllowed("user")
+    @RolesAllowed("admin")
     @Path("/{id}")
-    public Response atualizarPeloId(@PathParam("id") Long id, Cliente cliente){
+    public Response atualizarPeloId(@PathParam("id") Long id, Produto produto){
         Response.Status response = Response.Status.OK;
-        cliente.id = id;
-        if (clienteService.atualizarPeloId(cliente) == null)
+        produto.id = id;
+        if (produtoService.atualizarPeloId(produto) == null)
             response = Response.Status.NOT_FOUND;
 
-        return Response.ok(cliente).status(response).build();
+        return Response.ok(produto).status(response).build();
     }
+
 }
