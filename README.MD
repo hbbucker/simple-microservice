@@ -1,5 +1,25 @@
 ## Projeto Simples de Microservices
 
+### Compilação do Projeto
+
+Compile e empacote o projeto utilizando Maven:
+
+```bash
+./mvnw compile build
+```
+
+### Criar container Docker
+
+Utiliza o docker-compose para criar e levantar o ambiente com Docker:
+
+```bash
+docker-compose build
+docker-compose up -d
+```
+
+Será criado um container com PostgreSQL e outro com o Projeto na porta 8091, seguindo a documento a baixo
+para utilização da API Rest.
+
 ### Escopo
 * Clientes
 * Produtos
