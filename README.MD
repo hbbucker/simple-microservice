@@ -137,7 +137,7 @@ Incluir Cliente
 
 Para criar um novo cliente deve enviar o seguinte JSON:
 
-```
+```json
 {
     "nome": "HUGO",
     "endereco": "Av. Mato Grosso, 1290",
@@ -148,7 +148,7 @@ Para criar um novo cliente deve enviar o seguinte JSON:
 
 Retorno: Status 200(OK), com os dados e ID do Cliente
 
-```
+```json
 {
     "id": 4,
     "nome": "HUGO BUCKER",
@@ -189,7 +189,8 @@ Alterar os dados do Cliente pelo ID passado pelo caminho (path)
         Produces: application/json
 
 Corpo do Json para alterar o cliente, com os campos que deseja fazer alteração:
-```
+
+```json
 {
     "endereco": "Av. Afonso Pena, 1000"
 }

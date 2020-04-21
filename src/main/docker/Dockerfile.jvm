@@ -7,19 +7,19 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.jvm -t quarkus/brasprev-desafio-jvm .
+# docker build -f src/main/docker/Dockerfile.jvm -t hbbucker/simple-microservico-jvm .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 quarkus/brasprev-desafio-jvm
+# docker run -i --rm -p 8080:8080 hbbucker/simple-microservico-jvm
 #
 ###
-FROM registry.access.redhat.com/ubi8/ubi-minimal:8.1
+FROM registry.access.redhat.com/ubi8/ubi-minimal:8.1 as base_build
 
 ARG JAVA_PACKAGE=java-11-openjdk-headless
 ARG RUN_JAVA_VERSION=1.3.5
 
-ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en'
+ENV LANG='pt_BR.UTF-8' LANGUAGE='pt_BR:en'
 
 # Install java and the run-java script
 # Also set up permissions for user `1001`
@@ -34,6 +34,8 @@ RUN microdnf install curl ca-certificates ${JAVA_PACKAGE} \
     && chown 1001 /deployments/run-java.sh \
     && chmod 540 /deployments/run-java.sh \
     && echo "securerandom.source=file:/dev/urandom" >> /etc/alternatives/jre/lib/security/java.security
+
+FROM base_build
 
 # Configure the JAVA_OPTIONS, you can add -XshowSettings:vm to also display the heap size.
 ENV JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"

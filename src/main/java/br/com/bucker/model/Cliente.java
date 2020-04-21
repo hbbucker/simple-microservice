@@ -1,14 +1,11 @@
 package br.com.bucker.model;
 
-import com.fasterxml.jackson.annotation.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @JsonIdentityInfo(
@@ -22,8 +19,8 @@ public class Cliente extends EntityBase {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     public LocalDate dataDeNascimento;
 
-    @OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    public List<Pedido> pedidos;
+//    @OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @JsonIgnore
+//    public List<Pedido> pedidos;
 }
